@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pet?serverTimezone=Asia/Seoul
+    username: root
+    password: lms*!$Ms0828
+
+  thymeleaf:
+    prefix: classpath:/static/
+    suffix: .html
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+    defer-datasource-initialization: true
