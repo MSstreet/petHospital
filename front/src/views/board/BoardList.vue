@@ -20,6 +20,7 @@
 
       <tbody>
       <tr v-for="(row, idx) in list" :key="idx">
+
         <td>{{ row.idx }}</td>
         <td><a v-on:click="fnView(`${row.idx}`)">{{ row.title }}</a></td>
         <td>{{ row.author }}</td>
@@ -67,8 +68,11 @@ export default {
     data() { //변수생성
       return {
         requestBody: {}, //리스트 페이지 데이터전송
+
         list: {}, //리스트 데이터
+
         no: '', //게시판 숫자처리
+
         paging: {
           block: 0,
           end_page: 0,
@@ -82,6 +86,7 @@ export default {
           total_list_cnt: 0,
           total_page_cnt: 0,
         }, //페이징 데이터
+
         page: this.$route.query.page ? this.$route.query.page : 1,
         size: this.$route.query.size ? this.$route.query.size : 10,
         keyword: this.$route.query.keyword,
@@ -111,7 +116,21 @@ export default {
           headers: {}
         }).then((res) => {
 
-          this.list = res.data  //서버에서 데이터를 목록으로 보내므로 바로 할당하여 사용할 수 있다.
+         // console.log(res);
+
+          if (res.data.result_code === "OK") {
+            this.list = res.data.data
+            this.paging = res.data.pagination
+            this.no = this.paging.total_list_cnt - ((this.paging.page - 1) * this.paging.page_size)
+          }
+
+          // console.log(this.list);
+          // console.log(this.paging);
+
+         //this.list = res.data  //서버에서 데이터를 목록으로 보내므로 바로 할당하여 사용할 수 있다.
+
+          console.log(this.list);
+          console.log(res.data.data);
 
         }).catch((err) => {
           if (err.message.indexOf('Network Error') > -1) {
