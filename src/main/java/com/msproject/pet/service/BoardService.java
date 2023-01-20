@@ -3,8 +3,10 @@ package com.msproject.pet.service;
 
 import com.msproject.pet.entity.BoardEntity;
 import com.msproject.pet.entity.BoardRepository;
+import com.msproject.pet.entity.BoardRepositoryCustom;
 import com.msproject.pet.model.Header;
 import com.msproject.pet.model.Pagination;
+import com.msproject.pet.model.SearchCondition;
 import com.msproject.pet.web.dtos.BoardDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +25,7 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-
+    private final BoardRepositoryCustom boardRepositoryCustom;
     /**
      * 게시글 목록 가져오기
      */
@@ -48,11 +50,41 @@ public class BoardService {
 //        return dtos;
 //    }
 
-    public Header<List<BoardDto>> getBoardList(Pageable pageable) {
+//    public Header<List<BoardDto>> getBoardList(Pageable pageable) {
+//        List<BoardDto> dtos = new ArrayList<>();
+//
+//        Page<BoardEntity> boardEntities = boardRepository.findAllByOrderByIdxDesc(pageable);
+//
+//        for (BoardEntity entity : boardEntities) {
+//            BoardDto dto = BoardDto.builder()
+//                    .idx(entity.getIdx())
+//                    .author(entity.getAuthor())
+//                    .title(entity.getTitle())
+//                    .contents(entity.getContents())
+//                    .createdAt(entity.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")))
+//                    .build();
+//
+//            dtos.add(dto);
+//        }
+//
+//        Pagination pagination = new Pagination(
+//                (int) boardEntities.getTotalElements()
+//                , pageable.getPageNumber() + 1
+//                , pageable.getPageSize()
+//                , 10
+//        );
+//
+//        return Header.OK(dtos, pagination);
+//    }
+
+    /**
+     * 게시글 목록 가져오기
+     * @return
+     */
+    public Header<List<BoardDto>> getBoardList(Pageable pageable, SearchCondition searchCondition) {
         List<BoardDto> dtos = new ArrayList<>();
 
-        Page<BoardEntity> boardEntities = boardRepository.findAllByOrderByIdxDesc(pageable);
-
+        Page<BoardEntity> boardEntities = boardRepositoryCustom.findAllBySearchCondition(pageable, searchCondition);
         for (BoardEntity entity : boardEntities) {
             BoardDto dto = BoardDto.builder()
                     .idx(entity.getIdx())
@@ -74,6 +106,10 @@ public class BoardService {
 
         return Header.OK(dtos, pagination);
     }
+
+
+
+
 
     /**
      * 게시글 가져오기

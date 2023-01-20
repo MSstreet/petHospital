@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@SuppressWarnings("unchecked")
 public class Header<T> {
 
     private LocalDateTime transactionTime;

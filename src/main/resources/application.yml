@@ -8,9 +8,9 @@ spring:
     username: root
     password: lms*!$Ms0828
 
-  thymeleaf:
-    prefix: classpath:/static/
-    suffix: .html
+#  thymeleaf:
+#    prefix: classpath:/static/
+#    suffix: .html
 
   jpa:
     hibernate:
@@ -18,3 +18,7 @@ spring:
     show-sql: true
     generate-ddl: true
     defer-datasource-initialization: true
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+

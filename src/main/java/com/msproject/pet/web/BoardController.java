@@ -2,6 +2,7 @@ package com.msproject.pet.web;
 
 import com.msproject.pet.entity.BoardEntity;
 import com.msproject.pet.model.Header;
+import com.msproject.pet.model.SearchCondition;
 import com.msproject.pet.service.BoardService;
 import com.msproject.pet.web.dtos.BoardDto;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +25,19 @@ public class BoardController {
 //    public List<BoardDto> boardList() { return boardService.getBoardList(); }
 
 
+//    @GetMapping("/board/list")
+//    public Header<List<BoardDto>> boardList(
+//            @PageableDefault(sort = {"idx"}) Pageable pageable
+//    ) {
+//        return boardService.getBoardList(pageable);
+//    }
+
     @GetMapping("/board/list")
     public Header<List<BoardDto>> boardList(
-            @PageableDefault(sort = {"idx"}) Pageable pageable
+            @PageableDefault(sort = {"idx"}) Pageable pageable,
+            SearchCondition searchCondition
     ) {
-        return boardService.getBoardList(pageable);
+        return boardService.getBoardList(pageable, searchCondition);
     }
 
     @GetMapping("/board/{id}")
