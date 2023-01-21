@@ -53,8 +53,15 @@ public class Pagination {
         //총 게시글 수
         this.totalListCnt = totalListCnt;
 
+
+
+
         //총 페이지 수
         totalPageCnt = (int) Math.ceil(totalListCnt * 1.0 / this.pageSize);
+
+
+
+
 
         //총 블럭 수
         totalBlockCnt = (int) Math.ceil(totalPageCnt * 1.0 / blockSize);
@@ -67,23 +74,35 @@ public class Pagination {
         //블럭 시작 페이지
         startPage = ((block - 1) * blockSize + 1);
 
+
+
         //블럭 마지막 페이지
         endPage = startPage + blockSize - 1;
+
+
+
 
         //블럭 마지막 페이지 validation
         if (endPage > totalPageCnt) endPage = totalPageCnt;
 
+
         // 이전 블럭 (클릭 시, 이전 블럭 마지막 페이지)
         prevBlock = (block * blockSize) - blockSize;
+
 
         // 이전 블럭 validation
         if (prevBlock < 1) prevBlock = 1;
 
+
         //다음 블럭 (클릭 시, 다음 블럭 첫번째 페이지)
         nextBlock = (block * blockSize + 1);
 
+
+
         // 다음 블럭 validation
         if (nextBlock > totalPageCnt) nextBlock = totalPageCnt;
+
+
 
         //if(this.page < 1) this.page = 1
 

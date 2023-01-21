@@ -46,17 +46,10 @@ public class BoardController {
     }
 
 
-
-
-
-
-
     @PostMapping("/board")
     public BoardEntity create(@RequestBody BoardDto boardDto) {
         return boardService.create(boardDto);
     }
-
-
 
 
 

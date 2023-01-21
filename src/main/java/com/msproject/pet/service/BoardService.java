@@ -108,9 +108,6 @@ public class BoardService {
     }
 
 
-
-
-
     /**
      * 게시글 가져오기
      */
@@ -126,7 +123,6 @@ public class BoardService {
                 .createdAt(entity.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")))
                 .build();
     }
-
 
 
     /**
@@ -148,8 +144,10 @@ public class BoardService {
      */
     public BoardEntity update(BoardDto boardDto) {
         BoardEntity entity = boardRepository.findById(boardDto.getIdx()).orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
+
         entity.setTitle(boardDto.getTitle());
         entity.setContents(boardDto.getContents());
+
         return boardRepository.save(entity);
     }
 
